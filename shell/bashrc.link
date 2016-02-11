@@ -1,0 +1,9 @@
+# Martin's Bash
+# =============
+
+# Some dootfile business
+export DOOTFILES=`cat ~/.dootfiles`
+for fn in $DOOTFILES/fn/*.sh; do
+    source "$fn"
+done
+addpath $DOOTFILES/bin
