@@ -31,7 +31,9 @@ task :install do
                 when 'O' then overwrite_all = true
                 when 'b' then backup = true
                 when 'B' then backup_all = true
-                else puts "Invalid input - skipping"
+                else
+                    puts "Invalid input - skipping"
+                    next
                 end
             end
         end
