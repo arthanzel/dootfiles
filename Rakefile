@@ -49,7 +49,6 @@ task :install do
   File.open("#{ home }/.dootfiles", 'w') { |f| f.write(dootfiles) }
 end
 
-
 task :uninstall do
   home = ENV["HOME"]
   linkables = Dir.glob("**/*.link")
