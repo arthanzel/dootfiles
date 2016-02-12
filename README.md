@@ -1,9 +1,14 @@
-arthanzel's dootfiles
+arthanzel does dotfiles
 =====================
+These are my dotfiles. There are many others like them, but these ones are mine.
 
 Installation
 ------------
 `rake install` creates symlinks to all your dotfiles and adds a file called `.dootfiles` to your home folder with the location of this repo, so you can do a `cat ~/.dootfiles` to find it anytime. The environment variable `$DOOTFILES` defined in `shell/bashrc.link` will also reflect this location.
+
+The installer will prompt you to skip, overwrite, or backup existing files.
+
+`rake uninstall` removes all symlinks and restores all backups, hopefully returning your home directory to what is was before.
 
 Where things are
 ----------------
