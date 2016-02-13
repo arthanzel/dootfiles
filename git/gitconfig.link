@@ -5,11 +5,13 @@
 	excludesfile = /Users/martin/.gitignore_global
 	editor = nano
 [alias]
+	a = add .
 	br = branch
+	cm = commit -m
+	hist = log --pretty=format:"%h %s (%an, %ar)"
 	s = status -sb
 	st = status
-	hist = log --pretty=format:"%h %s (%an, %ar)"
-	unstage = reset HEAD --
 	tip = log -1 HEAD
+	unstage = reset HEAD --
 [url "https://"]
 	insteadOf = git://
