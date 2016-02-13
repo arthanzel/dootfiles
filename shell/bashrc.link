@@ -2,8 +2,14 @@
 # =============
 
 # Some dootfile business
+export CODE="$HOME/Code/"
 export DOOTFILES=`cat ~/.dootfiles`
-for fn in $DOOTFILES/fn/*.sh; do
-    source "$fn"
-done
+for config_file in $DOOTFILES/**/*.fn.sh; do source $config_file; done
 addpath $DOOTFILES/bin
+
+alias editbash="nano ~/.bashrc ; source ~/.bashrc"
+alias rebash="source ~/.bashrc"
+editfn() {
+    nano $DOOTFILES/$1.fn.sh;
+    source ~/.bashrc
+}

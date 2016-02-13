@@ -9,3 +9,8 @@ addpath() {
 	# 	echo "Cannot find path $1"
 	fi
 }
+
+# Makes a dir and enters it
+mkcd() {
+    mkdir -p $1 && cd $1
+}
