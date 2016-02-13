@@ -114,7 +114,7 @@ PS1+="\[${green}\]\w"; # working directory
 PS1+="\$(prompt_git \"\[${white}\] on \[${violet}\]\" \"\[${blue}\]\")"; # Git repo details
 PS1+="\n";
 PS1+="\[${white}\]> \[${reset}\]"; # `$` (and reset color)
-export PS1;
+#export PS1;
 
 PS2="\[${yellow}\]→ \[${reset}\]";
-export PS2;
+#export PS2;
