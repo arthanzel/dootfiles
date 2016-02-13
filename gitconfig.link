@@ -1,0 +1,21 @@
+[user]
+	name = Martin Hanzel
+	email = arthanzel@gmail.com
+[core]
+	excludesfile = /Users/martin/.gitignore_global
+	editor = nano
+[alias]
+	br = branch
+	s = status -s	
+	st = status
+	hist = log --pretty=format:"%h %s (%an, %ar)"
+	unstage = reset HEAD --
+	tip = log -1 HEAD
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[url "https://"]
+	insteadOf = git://
