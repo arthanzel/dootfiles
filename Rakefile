@@ -1,3 +1,4 @@
+require 'io/console'
 require 'rake'
 
 # Many thanks to Tristan at github.com/trishume for this file.
@@ -19,14 +20,16 @@ task :install do
 
     file = linkable.split("/").last.split(".link").last
     target = "#{ home }/.#{ file }"
-    puts "Linking #{ file }"
 
-    if File.exists?(target) || File.symlink?(target)
+    if File.symlink?(target)
+      # Overwrite existing symlinks from previous dootfile installs
+      overwrite = true
+    elsif File.exists?(target) 
       next if skip_all
       unless overwrite_all || backup_all
         puts "File already exists: #{ target }."
         puts "  [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all"
-        case STDIN.gets.chomp
+        case STDIN.getch
         when 's' then next
         when 'S' then skip_all = true
         when 'o' then overwrite = true
@@ -39,6 +42,8 @@ task :install do
         end
       end
     end
+
+    puts "Linking #{ file }"
 
     FileUtils.mv(target, "#{ target }.backup") if backup || backup_all
     FileUtils.rm(target) if overwrite || overwrite_all
