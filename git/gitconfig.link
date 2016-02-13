@@ -8,7 +8,6 @@
 	a = add .
 	br = branch
 	cm = commit -m
-	hist = log --pretty=format:"%h %s (%an, %ar)"
 	s = status -sb
 	st = status
 	tip = log -1 HEAD
