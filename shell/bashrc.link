@@ -5,7 +5,7 @@
 export CODE="$HOME/Code/"
 export DOOTFILES=`cat ~/.dootfiles`
 for config_file in $DOOTFILES/*.fn.sh; do source $config_file; done
-for config_file in $DOOTFILES/**/*.fn.sh; do source $config_file; done
+for config_file in $DOOTFILES/*/*.fn.sh; do source $config_file; done
 addpath $DOOTFILES/bin
 
 alias editbash="nano ~/.bashrc ; source ~/.bashrc"
