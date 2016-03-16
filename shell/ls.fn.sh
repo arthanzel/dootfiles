@@ -1,11 +1,4 @@
-# Set ls to be colorful always
-#if ls --color -d . > /dev/null 2>&1; then
-#   COLORFLAG="--color=auto"
-#elif ls -G -d . >/dev/null 2>&1; then
-#   COLORFLAG="-G"
-#fi
-
-alias ls="gls -p --color=auto"
+osx 'alias ls="gls -p --color=auto"' # Use GNU LS
 alias la="ls -a"
 alias ll="ls -l"
 alias lla="ls -la"
