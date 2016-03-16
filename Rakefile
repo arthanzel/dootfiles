@@ -31,7 +31,7 @@ task :install do
         puts "  [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all"
         case STDIN.getch
         when 's' then next
-        when 'S' then skip_all = true
+        when 'S' then skip_all = true; next
         when 'o' then overwrite = true
         when 'O' then overwrite_all = true
         when 'b' then backup = true
