@@ -5,7 +5,7 @@
 #   COLORFLAG="-G"
 #fi
 
-alias ls="gls --color=auto"
+alias ls="gls -p --color=auto"
 alias la="ls -a"
 alias ll="ls -l"
 alias lla="ls -la"
