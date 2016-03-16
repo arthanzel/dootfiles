@@ -1,6 +1,19 @@
 # Martin's Bash
 # =============
 
+osx() {
+    if [ "$(uname)" == "Darwin" ]; then
+        eval $1
+    elif [ -z $2 ]; then
+        # If not mac, run the second argument
+        echo "NO 2"
+    fi
+}
+
+notosx() {
+    osx "", $1
+}
+
 # Some dootfile business
 export CODE="$HOME/Code/"
 export DOOTFILES=`cat ~/.dootfiles`
