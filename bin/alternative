@@ -14,7 +14,7 @@ alternative java 8u74  Symlinks /opt/java/8u74 to /opt/java/java-current.
 
 alternative is, of course, not limited to Java."
 
-if [ $1 ==  "-h" ]; then
+if [[ $1 ==  "-h" ]]; then
     echo "$doc"
 elif [ -z $1 ]; then
     ls /opt    
