@@ -1,4 +1,4 @@
-osx 'alias ls="gls -p --color=auto"' # Use GNU LS
+[[ osx ]] && alias ls="ls -G" # Enable colours
 alias la="ls -a"
 alias ll="ls -l"
 alias lla="ls -la"

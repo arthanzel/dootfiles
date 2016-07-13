@@ -12,5 +12,7 @@
 	st = status
 	tip = log -1 HEAD
 	unstage = reset HEAD --
+
+# uOttawa blocks the git protocol on the wifi, inconveniently
 [url "https://"]
 	insteadOf = git://
