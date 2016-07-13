@@ -4,15 +4,15 @@ doc="This tool lists and switches active versions of SDKs like Java.
 Reminiscent of Debian's update-alternatives tool.
 
 Usage:
-alternative            Lists targets (SDKs) in /opt.
-alternative java       Lists versions of java in /opt/java.
+art-alternative            Lists targets (SDKs) in /opt.
+art-alternative java       Lists versions of java in /opt/java.
                        Will warn you if java doesn't exist.
-alternative java 8u74  Symlinks /opt/java/8u74 to /opt/java/java-current.
-                       java-current may now be set to \$JAVA_HOME or a similar
-                       variable.
-                       Will warn you if 8u74 doesn't exist.
+art-alternative java 8u74  Symlinks /opt/java/8u74 to /opt/java/java-current.
+                           java-current may now be set to \$JAVA_HOME or a similar
+                           variable.
+                           Will warn you if 8u74 doesn't exist.
 
-alternative is, of course, not limited to Java."
+art-alternative is, of course, not limited to Java."
 
 if [[ $1 ==  "-h" ]]; then
     echo "$doc"

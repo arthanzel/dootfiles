@@ -1,1 +1,1 @@
-alias alt="alternative"
+alias alt="art-alternative"
