@@ -2,16 +2,15 @@
 # =============
 
 osx() {
-    if [ "$(uname)" == "Darwin" ]; then
-        eval $1
-    elif [ -z $2 ]; then
-        # If not mac, run the second argument
-        echo "NO 2"
+    if [[ "$(uname)" == "Darwin" ]]; then
+        eval $@
     fi
 }
 
 notosx() {
-    osx "", $1
+    if [[ "$(uname)" != "Darwin" ]]; then
+        eval $@
+    fi
 }
 
 # Some dootfile business
@@ -21,9 +20,19 @@ for config_file in $DOOTFILES/*.fn.sh; do source $config_file; done
 for config_file in $DOOTFILES/*/*.fn.sh; do source $config_file; done
 addpath $DOOTFILES/bin
 
+osx addpath ~/Applications
+notosx addpath ~/bin
+
+# Make it easier to edit dootfiles
 alias editbash="nano ~/.bashrc ; source ~/.bashrc"
 alias rebash="source ~/.bashrc"
 editfn() {
-    nano $DOOTFILES/$1.fn.sh;
-    source ~/.bashrc
+    if [[ -f $DOOTFILES/$1.fn.sh ]]; then
+        nano $DOOTFILES/$1.fn.sh;
+        rebash
+    else
+        echo "File $1 does not exist."
+        echo "Available function files:"
+        echo `find $DOOTFILES -name **/*.fn.sh`
+    fi
 }

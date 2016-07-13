@@ -1,2 +1,2 @@
-javac -d class *.java
-java -cp class $@
+javac -d classes *.java
+java -cp classes $@
