@@ -1,2 +1,2 @@
 addpath ~/Applications
-addpath ~/Applications/node/bin
+addpath ~/bin

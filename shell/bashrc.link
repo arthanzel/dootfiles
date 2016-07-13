@@ -20,8 +20,6 @@ for config_file in $DOOTFILES/*.fn.sh; do source $config_file; done
 for config_file in $DOOTFILES/*/*.fn.sh; do source $config_file; done
 addpath $DOOTFILES/bin
 
-[[ osx ]] && addpath ~/Applications || addpath ~/bin
-
 # Make it easier to edit dootfiles.
 alias editbash="nano ~/.bashrc ; source ~/.bashrc"
 alias rebash="source ~/.bashrc"
