@@ -10,11 +10,11 @@ If you're looking for a good place to start reading the code, `shell/bashrc.link
 
 Installation
 ------------
-`rake install` creates symlinks to all your dootfiles and adds a file called `.dootfiles` to your home folder with the location of this repo, so you can do a `cat ~/.dootfiles` to find it anytime. The environment variable `$DOOTFILES` defined in `shell/bashrc.link` will also reflect this location.
+`chmod +x ./build.sh && ./build.sh` creates symlinks to all your dootfiles and adds a file called `.dootfiles` to your home folder with the location of this repo, so you can do a `cat ~/.dootfiles` to find it anytime. The environment variable `$DOOTFILES` defined in `shell/bashrc.link` will also reflect this location.
 
 The installer will prompt you to skip, overwrite, or backup existing files. Symlinks (as opposed to regular files) will always be overwritten.
 
-`rake uninstall` removes all symlinks and restores all backups, hopefully returning your home directory to what is was before.
+`./build.sh uninstall` removes all symlinks and restores all backups, hopefully returning your home directory to what is was before.
 
 Where (the wild) things are
 ----------------

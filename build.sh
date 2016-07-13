@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: Local variables
+
 # Make sure we are in the dootfiles directory so the build doesn't do screwey things.
 # Do this by testing the presence of a random string guaranteed to be in this file.
 if ! grep -q "IyEvYmluL2Jhc2gKCiMgTWF" build.sh; then
@@ -11,6 +13,10 @@ fi
 resolve() {
  	echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 }
+
+# TODO
+fileNotLink() {}
+
 
 # Install task
 # Use build.sh install force to force overwriting
