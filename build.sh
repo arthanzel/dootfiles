@@ -1,27 +1,35 @@
 #!/bin/bash
 
-# TODO: Local variables
-
 # Make sure we are in the dootfiles directory so the build doesn't do screwey things.
 # Do this by testing the presence of a random string guaranteed to be in this file.
 if ! grep -q "IyEvYmluL2Jhc2gKCiMgTWF" build.sh; then
 	echo "Must be in the dootfiles directory to run this script."
 	exit 1
 fi
+CURDIR=$(pwd)
 
 # Resolves a relative path into an absolute one.
 resolve() {
  	echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 }
 
-# TODO
-fileNotLink() {}
+# Outputs the path to which a link points. If the given file is not a link, outputs blank.
+getLinkTarget() {
+	echo $(readlink $1)
+}
 
+# Determines if a given file is a dootfile-created link.
+isDootfileLink() {
+	if [[ -L $1 && "$(getLinkTarget $1)" == "${CURDIR}"* ]]; then return 0; else return 1; fi
+}
 
 # Install task
 # Use build.sh install force to force overwriting
 if [[ -z $1 || $1 == "install" ]]; then
 	echo "Installing dootfiles to home..."
+
+	# ~/.dootfiles holds the location of the dootfiles repo.
+	echo $(pwd) > ~/.dootfiles
 
 	# For each *.link file in dootfiles
 	for LINE in $(find . -name *.link); do
@@ -43,7 +51,7 @@ if [[ -z $1 || $1 == "install" ]]; then
 		
 		# If the linkfile exists and is a regular file.
 		# User can choose to skip, overwrite, or backup the existing file.
-		if [[ $2 != "force" && -f $LINKFILE ]]; then
+		if [[ $2 != "force" && -f $LINKFILE ]] && ! isDootfileLink $LINKFILE; then
 			echo "File already exists: ~/.$NAME"
 
 			while true; do
@@ -71,20 +79,23 @@ if [[ -z $1 || $1 == "install" ]]; then
 elif [[ $1 == "uninstall" ]]; then
 	echo "Removing dootfiles and restoring backups..."
 
+	if [[ -f ~/.dootfiles ]]; then
+		rm ~/.dootfiles
+	fi
+
 	for LINE in $(find . -name *.link); do
 		NAME=$(basename $LINE | sed 's/\.link$//')
 		LINKFILE=$(resolve ~)/.$NAME
 		BACKUPFILE="${LINKFILE}.backup"
 
 		# Check if the linkfile is a symlink and remove.
-		# TODO: Read the link destination and remove only if it points to dootfiles
-		if [[ -L $LINKFILE ]]; then
+		if isDootfileLink $LINKFILE; then
 			rm $LINKFILE
-		fi
 
-		# Restore the backup
-		if [[ -f $BACKUPFILE ]]; then
-			mv $BACKUPFILE $LINKFILE
+			# Restore the backup
+			if [[ -f $BACKUPFILE ]]; then
+				mv $BACKUPFILE $LINKFILE
+			fi
 		fi
 	done
 

@@ -12,9 +12,9 @@ Installation
 ------------
 `chmod +x ./build.sh && ./build.sh` creates symlinks to all your dootfiles and adds a file called `.dootfiles` to your home folder with the location of this repo, so you can do a `cat ~/.dootfiles` to find it anytime. The environment variable `$DOOTFILES` defined in `shell/bashrc.link` will also reflect this location.
 
-The installer will prompt you to skip, overwrite, or backup existing files. Symlinks (as opposed to regular files) will always be overwritten.
+The installer will prompt you to skip, overwrite, or backup existing files. Symlinks pointing outside of dootfiles will never be touched. So if you have a non-doot dotfile link that points elsewhere, it's safe. 
 
-`./build.sh uninstall` removes all symlinks and restores all backups, hopefully returning your home directory to what is was before.
+`./build.sh uninstall` removes all symlinks and restores all backups, hopefully returning your home directory to what is was before. Again, non-dootfiles aren't changed.
 
 Where (the wild) things are
 ----------------
