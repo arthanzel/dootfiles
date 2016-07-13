@@ -1,4 +1,4 @@
-osx 'alias ls="ls -G"' # Use GNU LS
+[[ osx ]] && alias ls="ls -G"
 alias la="ls -a"
 alias ll="ls -l"
 alias lla="ls -la"

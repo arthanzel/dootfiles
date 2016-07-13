@@ -1,16 +1,9 @@
 # Martin's Bash
 # =============
 
+# Don't export this function.
 osx() {
-    if [[ "$(uname)" == "Darwin" ]]; then
-        eval $@
-    fi
-}
-
-notosx() {
-    if [[ "$(uname)" != "Darwin" ]]; then
-        eval $@
-    fi
+    return `uname` == "Darwin"
 }
 
 # Some dootfile business
@@ -20,8 +13,7 @@ for config_file in $DOOTFILES/*.fn.sh; do source $config_file; done
 for config_file in $DOOTFILES/*/*.fn.sh; do source $config_file; done
 addpath $DOOTFILES/bin
 
-osx addpath ~/Applications
-notosx addpath ~/bin
+[[ osx ]] && addpath ~/Applications || addpath ~/bin
 
 # Make it easier to edit dootfiles
 alias editbash="nano ~/.bashrc ; source ~/.bashrc"
@@ -31,8 +23,20 @@ editfn() {
         nano $DOOTFILES/$1.fn.sh;
         rebash
     else
-        echo "File $1 does not exist."
+        # Check if string is not blank with -n
+        if [[ -n $1 ]]; then
+            echo "File $1 does not exist."
+        fi
+
         echo "Available function files:"
-        echo `find $DOOTFILES -name **/*.fn.sh`
+
+        # List available function files.
+        # The first sed removes the path prefix and .fn.sh suffix.
+        # The second sed indents each line.
+        # The switch enables extended regexes in sed.
+        [[ osx ]] && SWITCH="-E" || SWITCH="-r" 
+        find $DOOTFILES -name \*.fn.sh \
+            | sed $SWITCH -e 's:^'$DOOTFILES'\/|\.fn\.sh$::g' \
+                -e 's/^/  /'
     fi
 }
