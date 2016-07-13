@@ -1,8 +1,12 @@
 arthanzel does dootfiles
 =====================
-These are my dootfiles. There are many others like them, but these ones are mine.
+Hello! These are my dootfiles. There are many others like them, but these ones are mine.
 
 This is a rather new repo and I'm still in the process of consolidating everything on my many development machines, so I'll be adding dootfiles quite often. Until then, do not be alarmed if the repo seems empty. There's still some neat stuff, especially in the `shell` folder.
+
+Most files are written in Bash, which can be quite cryptic. But don't worry - most files are liberally commented.
+
+If you're looking for a good place to start reading the code, `shell/bashrc.link` would be a good start.
 
 Installation
 ------------
@@ -12,7 +16,7 @@ The installer will prompt you to skip, overwrite, or backup existing files. Syml
 
 `rake uninstall` removes all symlinks and restores all backups, hopefully returning your home directory to what is was before.
 
-Where things are
+Where (the wild) things are
 ----------------
 - **bin/** : This directory will be added to the `$PATH` via `.bashrc`.
 - **\*.fn.sh** : These files will be automatically sourced by `.bashrc` first. Put any prerequisite functions or logic here.
@@ -28,7 +32,3 @@ While I tried to make my dootfiles as unopinionated as possible, a lot of it pro
 MIT licensed
 ------------
 Please use the code.
-
-Todo
-----
-- Add a facility to source OSX-specific files on OSX because Apple is stupid for doing things Their Own Way&trade;

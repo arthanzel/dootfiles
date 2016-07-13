@@ -1,12 +1,19 @@
 # Martin's Bash
 # =============
 
-# Don't export this function.
+# Test for OSX.
+# Since OSX is BSD and not Linux-based, some coreutils switches are different (ls, sed, etc.)
+# Usage:
+#   [[ osx ]] && echo "I'm OSX!" || echo "I'm Linux!"
+# This method has issues - if the OSX command returns a non-zero code, the Linux command will be run.
+# 
+# More verbose usage:
+# if [[ osx ]]; then echo "OSX"; else echo "Linux"; fi
 osx() {
     return `uname` == "Darwin"
 }
 
-# Some dootfile business
+# Dootfile business.
 export CODE="$HOME/Code/"
 export DOOTFILES=`cat ~/.dootfiles`
 for config_file in $DOOTFILES/*.fn.sh; do source $config_file; done
@@ -15,15 +22,20 @@ addpath $DOOTFILES/bin
 
 [[ osx ]] && addpath ~/Applications || addpath ~/bin
 
-# Make it easier to edit dootfiles
+# Make it easier to edit dootfiles.
 alias editbash="nano ~/.bashrc ; source ~/.bashrc"
 alias rebash="source ~/.bashrc"
+
+# Opens an editor to edit a given function file.
+# Specify the folder and filename, sans extension.
+# Example: editfn shell/aliases.
+# If the file is omitted or doesn't exist, lists available function files.
 editfn() {
     if [[ -f $DOOTFILES/$1.fn.sh ]]; then
         nano $DOOTFILES/$1.fn.sh;
         rebash
     else
-        # Check if string is not blank with -n
+        # Check if string is not blank with -n.
         if [[ -n $1 ]]; then
             echo "File $1 does not exist."
         fi
@@ -37,6 +49,6 @@ editfn() {
         [[ osx ]] && SWITCH="-E" || SWITCH="-r" 
         find $DOOTFILES -name \*.fn.sh \
             | sed $SWITCH -e 's:^'$DOOTFILES'\/|\.fn\.sh$::g' \
-                -e 's/^/  /'
+                          -e 's/^/  /'
     fi
 }
