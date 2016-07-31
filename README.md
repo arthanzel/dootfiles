@@ -8,7 +8,6 @@ Most files are written in Bash, which can be quite cryptic. But don't worry - mo
 
 If you're looking for a good place to start reading the code, `shell/bashrc.link` would be a good start.
 
-
 Installation
 ------------
 Dootfiles comes with a convenient installer. It writes dootfiles to your home directory and runs some arbitrary scripts. **Never use this tool if you do not trust the repository or its author.** Review all of the code if you have the slightest doubt of its authenticity.
