@@ -8,13 +8,26 @@ Most files are written in Bash, which can be quite cryptic. But don't worry - mo
 
 If you're looking for a good place to start reading the code, `shell/bashrc.link` would be a good start.
 
+
 Installation
 ------------
-`chmod +x ./build.sh && ./build.sh` creates symlinks to all your dootfiles and adds a file called `.dootfiles` to your home folder with the location of this repo, so you can do a `cat ~/.dootfiles` to find it anytime. The environment variable `$DOOTFILES` defined in `shell/bashrc.link` will also reflect this location.
+Dootfiles comes with a convenient installer. It writes dootfiles to your home directory and runs some arbitrary scripts. **Never use this tool if you do not trust the repository or its author.** Review all of the code if you have the slightest doubt of its authenticity.
 
-The installer will prompt you to skip, overwrite, or backup existing files. Symlinks pointing outside of dootfiles will never be touched. So if you have a non-doot dotfile link that points elsewhere, it's safe. 
+`chmod +x ./install.sh && ./install.sh` creates symlinks to all your dootfiles and adds a file called `.dootfiles` to your home folder with the location of this repo, so you can do a `cat ~/.dootfiles` to find it anytime. The environment variable `$DOOTFILES` defined in `shell/bashrc.link` will also reflect this location.
 
-`./build.sh uninstall` removes all symlinks and restores all backups, hopefully returning your home directory to what is was before. Again, non-dootfiles aren't changed.
+The installer will prompt you to skip, overwrite, or backup existing files. Symlinks pointing outside of dootfiles will never be touched. So if you have a non-doot dotfile link that points elsewhere, it's safe.
+
+`./install.sh uninstall` removes all symlinks and restores all backups, hopefully returning your home directory to what is was before. Again, non-dootfiles aren't changed.
+
+The installer also supports post-install hooks with *.install.sh scripts. See the next section for more information.
+
+Post-install hooks
+------------------
+Files ending in `.post.sh` will be executed after the installer has finished linking all dootfiles. They are given one argument: `install` or `uninstall`. They do what you expect them to.
+
+Post-install scripts are run *from the dootfiles directory*, the same one that contains `install.sh` and this README. The install script sources the `.bashrc` before running post-install hooks, so they also have access to all your custom bash goodness. Don't forget to export functions if you want them available!
+
+You can invoke the post-install scripts without running the whole install process with `./install.sh postinstall install` or `./install.sh post uninstall`.
 
 Where (the wild) things are
 ----------------
@@ -22,6 +35,7 @@ Where (the wild) things are
 - **\*.fn.sh** : These files will be automatically sourced by `.bashrc` first. Put any prerequisite functions or logic here.
 - **topic/*.fn.sh** : These files will be automatically sourced by `.bashrc`. Use these to set up topic-related functions, aliases, etc. **Achtung!** These files are sourced in series, and many files will slow down the startup of the shell.
 - **\*.link** or **topic/*.link** : These will be symbolically linked to your home folder. No need to put a dot in front of these. The dot will be added for you.
+- **\*.install.sh** or topic/*.install.sh** : These are post-install scripts that are run after the installer has finished doing its thing. See the **Post-install hooks** section for more info.
 
 Using
 -----

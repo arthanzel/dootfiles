@@ -2,7 +2,7 @@
 
 # Make sure we are in the dootfiles directory so the build doesn't do screwey things.
 # Do this by testing the presence of a random string guaranteed to be in this file.
-if ! grep -q "IyEvYmluL2Jhc2gKCiMgTWF" build.sh; then
+if ! grep -q "IyEvYmluL2Jhc2gKCiMgTWF" install.sh; then
 	echo "Must be in the dootfiles directory to run this script."
 	exit 1
 fi
@@ -21,6 +21,18 @@ getLinkTarget() {
 # Determines if a given file is a dootfile-created link.
 isDootfileLink() {
 	if [[ -L $1 && "$(getLinkTarget $1)" == "${CURDIR}"* ]]; then return 0; else return 1; fi
+}
+
+# Runs post-install hooks.
+# See the README for info.
+postinstall() {
+	# Run custom install hooks
+	for FILE in $(find . -name *.post.sh); do
+		echo "Running postinstall for $FILE..."
+
+		if [[ ! -x "$FILE" ]]; then chmod +x "$FILE"; fi
+		"$FILE" $1
+	done
 }
 
 # Install task
@@ -74,6 +86,9 @@ if [[ -z $1 || $1 == "install" ]]; then
 		ln -sf $LINKTGT $LINKFILE
 	done
 
+	source ~/.bashrc
+	postinstall "install"
+
 	echo "Done!"
 
 elif [[ $1 == "uninstall" ]]; then
@@ -99,5 +114,10 @@ elif [[ $1 == "uninstall" ]]; then
 		fi
 	done
 
+	postinstall "uninstall"
+
 	echo "Done!"
+
+elif [[ $1 == "post" ]]; then
+	postinstall "$2"
 fi
