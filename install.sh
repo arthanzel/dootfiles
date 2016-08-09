@@ -7,6 +7,7 @@ if ! grep -q "IyEvYmluL2Jhc2gKCiMgTWF" install.sh; then
 	exit 1
 fi
 CURDIR=$(pwd)
+export DOOTFILES="$CURDIR"
 
 source "install-functions.sh"
 
@@ -14,11 +15,13 @@ source "install-functions.sh"
 # See the README for info.
 postinstall() {
 	# Run custom install hooks
-	for FILE in $(find . -name *.post.sh); do
+	for FILE in $(find "$(pwd)" -name *.post.sh); do
 		echo "Running postinstall for $FILE..."
 
 		if [[ ! -x "$FILE" ]]; then chmod +x "$FILE"; fi
-		"$FILE" $1
+		
+		# Run the file from its own directory in a subshell
+		(cd $(dirname "$FILE") && "$FILE" "$1")
 	done
 }
 
@@ -31,9 +34,9 @@ if [[ -z $1 || $1 == "install" ]]; then
 	echo $(pwd) > ~/.dootfiles
 
 	# For each *.link file in dootfiles
-	for LINE in $(find . -name *.link); do
+	for LINE in $(find "$(pwd)" -name *.link); do
 		# This is the file to which the link points.
-		LINKTGT=$(resolve $LINE)
+		LINKTGT=$LINE
 		
 		# This is the bare filename of the linkable.
 		# E.g. shell/bashrc.link -> bashrc
@@ -49,6 +52,7 @@ if [[ -z $1 || $1 == "install" ]]; then
 		fi
 	done
 
+	# Allow postinstall scripts to access bashrc goodness
 	source ~/.bashrc
 	postinstall "install"
 

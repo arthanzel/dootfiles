@@ -1,5 +1,3 @@
-source "install-functions.sh"
-
 if osx; then
     FILE="/Users/martin/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
 else
@@ -7,11 +5,7 @@ else
 fi
 
 if [[ $1 == "install" ]]; then
-    echo "Linking ST3..."
-    dootinstall $(pwd)/st3/Preferences.sublime-settings "$FILE"
-fi
-
-if [[ $1 == "uninstall" ]]; then
-    echo "Removing ST3..."
-    dootuninstall "$FILE"
+    echo "Copying ST3 prefs..."
+    mkdir -p "$(dirname "$FILE")"
+    cp Preferences.sublime-settings "$FILE" 2> /dev/null
 fi
