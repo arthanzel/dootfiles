@@ -27,7 +27,7 @@ else
         fi
     else
         if [ -d /opt/$1/$2 ]; then
-            ln -sf /opt/$1/$1 /opt/$1/$1-current
+            ln -sf /opt/$1/$2 /opt/$1/"${1}-current"
             echo "$2 is now the active version of $1."
         else
             echo "$2 is not a version of $1!"
