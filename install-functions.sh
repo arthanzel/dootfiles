@@ -1,6 +1,21 @@
+# ====== install-functions.sh ======
+# 
+# Contains common helper functions to help with installing dootfiles.
+
 # Resolves a relative path into an absolute one.
 resolve() {
     echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+}
+
+# Gets the dootified basename of a file by removing everything after and
+# including ".link" in the filename.
+# Example: $DOOTFILES/shell/bashrc.link.sh becomes bashrc
+dootBasename() {
+    # Remove .link* from the end of the first agument
+    echo $(basename ${1%.link*})
+
+    #osx && SWITCH="-E" || SWITCH="-r"
+    #echo $(basename $1 | sed $SWITCH 's/\.link(\..*)?$//')
 }
 
 # Outputs the path to which a link points. If the given file is not a link, outputs blank.
@@ -9,8 +24,15 @@ getLinkTarget() {
 }
 
 # Determines if a given file is a dootfile-created link.
+# Returns zero if true, one if false.
 isDootfileLink() {
     if [[ -L $1 && "$(getLinkTarget $1)" == "${CURDIR}"* ]]; then return 0; else return 1; fi
+}
+
+# Determines whether the current platform is OSX or Linux.
+# Returns zero if OSX, one if Linux.
+osx() {
+    if [[ $(uname) == "Darwin" ]]; then return 0; else return 1; fi
 }
 
 # Installs a dootfile, prompting the user to skip, overwrite, or backup existing files.

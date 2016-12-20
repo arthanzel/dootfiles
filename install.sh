@@ -6,10 +6,17 @@ if ! grep -q "IyEvYmluL2Jhc2gKCiMgTWF" install.sh; then
 	echo "Must be in the dootfiles directory to run this script."
 	exit 1
 fi
-CURDIR=$(pwd)
-export DOOTFILES="$CURDIR"
 
+DOOTFILES="$(pwd)"
+echo "Dootfiles directory is $DOOTFILES"
+echo
+
+# Helper functions for the install process
 source "install-functions.sh"
+
+findLinkFiles() {
+	echo $(find "$(pwd)" \( -name *.link -o -name *.link.* \) )
+}
 
 # Runs post-install hooks.
 # See the README for info.
@@ -27,28 +34,23 @@ postinstall() {
 
 # Install task
 # Use build.sh install force to force overwriting
-if [[ -z $1 || $1 == "install" ]]; then
+if [[ $1 == "install" ]]; then
 	echo "Installing dootfiles to home..."
 
 	# ~/.dootfiles holds the location of the dootfiles repo.
-	echo $(pwd) > ~/.dootfiles
+	echo "$DOOTFILES" > ~/.dootfiles
 
-	# For each *.link file in dootfiles
-	for LINE in $(find "$(pwd)" -name *.link); do
-		# This is the file to which the link points.
-		LINKTGT=$LINE
-		
-		# This is the bare filename of the linkable.
-		# E.g. shell/bashrc.link -> bashrc
-		NAME=$(basename $LINE | sed 's/\.link$//')
-
-		# This is the actual file of the link.
+	# For each *.link file in dootfiles (absolute paths)
+	for FILE in $(findLinkFiles); do
+		# End result: ~/.$LINKFILE will point to $FILE.
+		NAME="$(dootBasename "$FILE")"
 		LINKFILE=$(resolve ~)/.$NAME
 
+		echo "Linking $LINKFILE"
 		if [[ $2 == "force" ]]; then
-			dootinstall "$LINKTGT" "$LINKFILE" force
+			dootinstall "$FILE" "$LINKFILE" force
 		else
-			dootinstall "$LINKTGT" "$LINKFILE"
+			dootinstall "$FILE" "$LINKFILE"
 		fi
 	done
 
@@ -65,9 +67,10 @@ elif [[ $1 == "uninstall" ]]; then
 		rm ~/.dootfiles
 	fi
 
-	for LINE in $(find . -name *.link); do
-		NAME=$(basename $LINE | sed 's/\.link$//')
+	for FILE in $(findLinkFiles); do
+		NAME="$(dootBasename "$FILE")"
 		LINKFILE=$(resolve ~)/.$NAME
+		echo "Removing $LINKFILE"
 		dootuninstall "$LINKFILE"
 	done
 
@@ -75,6 +78,20 @@ elif [[ $1 == "uninstall" ]]; then
 
 	echo "Done!"
 
-elif [[ $1 == "post" ]]; then
+elif [[ $1 == "post" && -n $2 ]]; then
 	postinstall "$2"
+
+# Prints a help message
+else
+	echo -e \
+"""Usage:
+	doot [command]
+
+Commands:
+	install        Installs dootfiles by symlinking to ~ and runs
+	               post-install hooks.
+	uninstall      Unlinks dootfiles and optionally restores files.
+	post [target]  Runs only post-install scripts for the given target.
+	help           Shows this help message.
+"""
 fi

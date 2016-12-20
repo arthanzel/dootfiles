@@ -11,6 +11,7 @@ addpath $DOOTFILES/bin
 # Make it easier to edit dootfiles.
 alias editbash="nano ~/.bashrc ; source ~/.bashrc"
 alias rebash="source ~/.bashrc"
+alias doot="cd '$DOOTFILES'; '$DOOTFILES'/install.sh"
 
 # Opens an editor to edit a given function file.
 # Specify the folder and filename, sans extension.
