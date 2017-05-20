@@ -24,7 +24,7 @@ getLinkTarget() {
 }
 
 # Determines if a given file is a dootfile-created link.
-# Returns zero if true, one if false.
+# Returns code 0 if true, code 1 if false.
 isDootfileLink() {
     if [[ -L $1 && "$(getLinkTarget $1)" == "${CURDIR}"* ]]; then return 0; else return 1; fi
 }
@@ -46,8 +46,8 @@ dootinstall() {
         continue
     fi
 
-    # If the linkfile exists and is a regular file.
-    # User can choose to skip, overwrite, or backup the existing file.
+    # If the linkfile exists and is a regular file, the user can choose to skip,
+    # overwrite, or backup the existing file.
     if [[ $3 != "force" && -f "$LINKFILE" ]] && ! isDootfileLink "$LINKFILE"; then
         echo "File already exists: $LINKFILE"
 

@@ -10,7 +10,7 @@ If you're looking for a good place to start reading the code, `shell/bashrc.link
 
 Installation
 ------------
-Dootfiles comes with a convenient installer. It writes dootfiles to your home directory and runs some arbitrary scripts. **Never use this tool if you do not trust the repository or its author.** Review all of the code if you have the slightest doubt of its authenticity.
+Dootfiles comes with a convenient installer. It writes dootfiles to your home directory and runs some arbitrary scripts. **Never use this tool if you do not trust the repository or its author.** Review all of the code if you have the slightest doubt of its authenticity. It's quite possible that your existing dotfiles will become lost forever.
 
 `./install.sh` creates symlinks to all your dootfiles and adds a file called `.dootfiles` to your home folder with the location of this repo, so you can do a `cat ~/.dootfiles` to find it anytime. The environment variable `$DOOTFILES` defined in `shell/bashrc.link` will also reflect this location.
 
@@ -22,18 +22,18 @@ The installer also supports post-install hooks with *.post.sh scripts. See the n
 
 Post-install hooks
 ------------------
-Files ending in `.post.sh` will be executed after the installer has finished linking all dootfiles. They are given one argument: `install` or `uninstall`. They do what you expect them to.
+Files ending in `.post.sh` will be executed after the installer has finished linking all dootfiles. The post scripts are given one argument: `install` or `uninstall`.
 
-Post-install scripts are run *from the dootfiles directory*, the same one that contains `install.sh` and this README. The install script sources the `.bashrc` before running post-install hooks, so they also have access to all your custom bash goodness. Don't forget to export functions if you want them available!
+Post-install scripts are run from their own directories. The install script sources the `.bashrc` before running post-install hooks, so they also have access to all your custom bash goodness. Don't forget to export functions if you want them available!
 
-You can invoke the post-install scripts without running the whole install process with `./install.sh postinstall install` or `./install.sh post uninstall`.
+You can invoke the post-install scripts without running the whole install process with `./install.sh post install` or `./install.sh post uninstall`.
 
 Where (the wild) things are
 ----------------
 - **bin/** : This directory will be added to the `$PATH` via `.bashrc`.
 - **\*.fn.sh** : These files will be automatically sourced by `.bashrc` first. Put any prerequisite functions or logic here.
 - **topic/*.fn.sh** : These files will be automatically sourced by `.bashrc`. Use these to set up topic-related functions, aliases, etc. **Achtung!** These files are sourced in series, and many files will slow down the startup of the shell.
-- **\*.link** or **topic/*.link** : These will be symbolically linked to your home folder. No need to put a dot in front of these. The dot will be added for you.
+- **\*.link.\*** or **topic/*.link.\*** : These will be symbolically linked to your home folder. No need to put a dot in front of these. The dot will be added for you.
 - **\*.post.sh** or topic/*.post.sh** : These are post-install scripts that are run after the installer has finished doing its thing. See the **Post-install hooks** section for more info.
 
 Using

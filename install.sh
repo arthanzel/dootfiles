@@ -3,7 +3,7 @@
 # Make sure we are in the dootfiles directory so the build doesn't do screwey things.
 # Do this by testing the presence of a random string guaranteed to be in this file.
 if ! grep -q "IyEvYmluL2Jhc2gKCiMgTWF" install.sh; then
-	echo "Must be in the dootfiles directory to run this script."
+	echo "You must be in the dootfiles directory to run this script."
 	exit 1
 fi
 
@@ -14,6 +14,7 @@ echo
 # Helper functions for the install process
 source "install-functions.sh"
 
+# Finds all files in the dootfiles directory that shall be linked.
 findLinkFiles() {
 	echo $(find "$(pwd)" \( -name *.link -o -name *.link.* \) )
 }
@@ -33,9 +34,9 @@ postinstall() {
 }
 
 # Install task
-# Use build.sh install force to force overwriting
+# Use install.sh install force to force overwriting
 if [[ $1 == "install" ]]; then
-	echo "Installing dootfiles to home..."
+	echo "Installing dootfiles..."
 
 	# ~/.dootfiles holds the location of the dootfiles repo.
 	echo "$DOOTFILES" > ~/.dootfiles
