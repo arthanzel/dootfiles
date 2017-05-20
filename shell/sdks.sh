@@ -9,7 +9,7 @@ export GOPATH="$HOME/Code/go"
 addpath $GOPATH/bin
 
 # Node.js
-if osx; then
+if mac; then
     addpath ~/Applications/node/bin
 fi
 
