@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# mac - Test for mac/OSX.
+#
+# Usage:
+#     mac [mac-value] [not-mac-value]
+#
+# If no arguments are given, the function returns code 0 if on mac/OSX, and code 1 otherwise:
+#     mac && echo "I'm a mac!" || echo "I'm not a mac!"
+#     if mac; then echo "mac"; else echo "Not a mac"; fi
+# Care must be taken when using the first form. If the mac-specific command returns
+# a non-zero exit code, the non-mac-specific command will run.
+#
+# If at least one argument is given, the function returns the first if on osx, and the second otherwise:
+#     SWITCH=$(mac "-mac" "-lin")
+#   
+if [[ "$1" ]]; then
+    if [[ $(uname) == "Darwin" ]]; then echo "$1"; else echo "$2"; fi
+else
+    if [[ $(uname) == "Darwin" ]]; then exit 0; else exit 1; fi
+fi

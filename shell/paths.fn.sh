@@ -1,2 +1,0 @@
-addpath ~/Applications
-addpath ~/bin

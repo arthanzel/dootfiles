@@ -55,6 +55,8 @@ if [[ $1 == "install" ]]; then
 		fi
 	done
 
+	chmod +x bin/*
+
 	# Allow postinstall scripts to access bashrc goodness
 	source ~/.bashrc
 	postinstall "install"

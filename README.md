@@ -30,9 +30,7 @@ You can invoke the post-install scripts without running the whole install proces
 
 Where (the wild) things are
 ----------------
-- **bin/** : This directory will be added to the `$PATH` via `.bashrc`.
-- **\*.fn.sh** : These files will be automatically sourced by `.bashrc` first. Put any prerequisite functions or logic here.
-- **topic/*.fn.sh** : These files will be automatically sourced by `.bashrc`. Use these to set up topic-related functions, aliases, etc. **Achtung!** These files are sourced in series, and many files will slow down the startup of the shell.
+- **bin/** : This directory will be added to the `$PATH` via `.bashrc`.aliases, etc. **Achtung!** These files are sourced in series, and many files will slow down the startup of the shell.
 - **\*.link.\*** or **topic/*.link.\*** : These will be symbolically linked to your home folder. No need to put a dot in front of these. The dot will be added for you.
 - **\*.post.sh** or topic/*.post.sh** : These are post-install scripts that are run after the installer has finished doing its thing. See the **Post-install hooks** section for more info.
 

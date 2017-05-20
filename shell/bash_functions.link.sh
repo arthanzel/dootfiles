@@ -1,7 +1,5 @@
-# functions.fn.sh
-# 
-# This file defines functions to be loaded before anything else. Put common
-# helpers and dependencies here.
+# Martin's Bash functions
+# =======================
 
 # addpath adds a path to the current $PATH and exports it.
 # If the path is invalid or already exists in the $PATH, it will be ignored.
