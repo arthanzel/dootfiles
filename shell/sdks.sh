@@ -8,11 +8,6 @@ addpath $GOROOT/bin
 export GOPATH="$HOME/Code/go"
 addpath $GOPATH/bin
 
-# Node.js
-if mac; then
-    addpath ~/Applications/node/bin
-fi
-
 # Ruby
 addpath ~/.rvm/bin
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

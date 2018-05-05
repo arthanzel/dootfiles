@@ -1,0 +1,11 @@
+# Scripts to run.
+# Lines must begin with ! followed by a space.
+# You can run scripts anywhere, not just at the top of the file.
+! ./version.sh
+
+# Links to make.
+# These will be passed to ln -s {first-arg} {second-arg}
+shell/bashrc.sh         ~/.bashrc
+shell/bash_profile.sh   ~/.bash_profile
+git/gitconfig           ~/.gitconfig
+git/gitignore_global    ~/.gitignore_global

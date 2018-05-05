@@ -16,3 +16,11 @@
 # uOttawa blocks the git protocol on the wifi, inconveniently
 [url "https://"]
 	insteadOf = git://
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/martin/.stCommitMsg

@@ -1,0 +1,1 @@
+- Resolves paths in doot.py instead of install.py to improve re-usability of doot.py
